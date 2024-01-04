@@ -26,7 +26,7 @@
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/your-username/sls-node-ts-template.git
+    git clone git@github.com:otlichnyy/sls-node-ts-template.git
     cd sls-node-ts-template
     ```
 
