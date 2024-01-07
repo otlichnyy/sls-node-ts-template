@@ -2,7 +2,7 @@
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
-**The production-ready boilerplate to develop serverless applications on AWS Lambda with Express.js in TypeScript.**
+**The production-ready boilerplate to develop serverless applications on AWS Lambda with Express.js in TypeScript. Build Apps Locally**
 
 ## 📦 Features
 
@@ -13,6 +13,8 @@
 -   **Jest Testing:** Write and run tests with Jest to ensure the reliability of your serverless functions.
 -   **Serverless Plugins:** Leverage useful Serverless plugins like `serverless-dotenv-plugin`, `serverless-esbuild`, `serverless-lift`, and `serverless-offline`.
 -   **Deployment-ready:** A template ready for production deployment on AWS Lambda.
+-   **Dynamodb-local** This support DyanamoDB local Developement
+-   **Proper Global Error Handling**: Express's global error handling with error stacks on developement and production envs (make sure to add `NODE_ENV=developement` to see error stacks in response)
 
 ## 🛠️ Prerequisites
 
