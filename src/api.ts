@@ -18,6 +18,8 @@ app.get("/env", (req, res) => {
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
+import ApiError from "./utils/ApiError";
+import { customErrorHandler, errorConvertor } from "./middleware/Error";
 
 const client = new DynamoDBClient({
     region: "localhost",
@@ -39,15 +41,21 @@ app.get("/db", async (req, res) => {
     res.json(JSON.stringify(response.Item));
 });
 
-//--------------
-//--------------
-
 app.get("/error", (req, res) => {
     throw new Error("MEh!");
     res.status(200).send({ status: "OK" });
 });
 
-// TODO add global error handler
+// send back a 404 error for any unknown api request
+app.use((req, res, next) => {
+    next(new ApiError(404, "Not found"));
+});
+
+// convert any other Error type to APIError
+app.use(errorConvertor);
+
+// handle error
+app.use(customErrorHandler);
 
 // Exporting application and handler
 export const application = app;
