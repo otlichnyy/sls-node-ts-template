@@ -1,0 +1,12 @@
+[
+    {
+        "PK": "PROJECT#1",
+        "SK": "PROJECT#1",
+        "title": "amazing title"
+    },
+    {
+        "PK": "PROJECT#2",
+        "SK": "PROJECT#3",
+        "title": "amazing title 2"
+    }
+]

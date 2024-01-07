@@ -16,6 +16,8 @@
         "node": "18.19.0"
     },
     "devDependencies": {
+        "@aws-sdk/client-dynamodb": "^3.485.0",
+        "@aws-sdk/lib-dynamodb": "^3.485.0",
         "@types/aws-lambda": "^8.10.130",
         "@types/express": "^4.17.21",
         "@types/jest": "^29.5.11",
@@ -29,6 +31,7 @@
         "prettier": "^3.1.1",
         "serverless": "^3.38.0",
         "serverless-dotenv-plugin": "^6.0.0",
+        "serverless-dynamodb": "^0.2.47",
         "serverless-esbuild": "^1.50.1",
         "serverless-lift": "^1.28.1",
         "serverless-offline": "^13.3.2",

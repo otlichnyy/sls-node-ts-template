@@ -2,28 +2,66 @@ service: cachier
 frameworkVersion: "3"
 
 provider:
-  name: aws
-  runtime: nodejs18.x
+    name: aws
+    runtime: nodejs18.x
 
 functions:
-  api:
-    handler: src/api.handler
-    events:
-      - http:
-          path: / # this matches the base path
-          method: ANY
-      - http:
-          path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
-          method: ANY
+    api:
+        handler: src/api.handler
+        events:
+            - http:
+                  path: / # this matches the base path
+                  method: ANY
+            - http:
+                  path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
+                  method: ANY
 
 plugins:
-  - serverless-esbuild
-  - serverless-offline
-  - serverless-lift
-  - serverless-dotenv-plugin
+    - serverless-esbuild
+    - serverless-offline
+    - serverless-lift
+    - serverless-dotenv-plugin
+    - serverless-dynamodb
 
 custom:
-  esbuild:
-    bundle: true
-    minify: false
-    sourcemap: inline
+    esbuild:
+        bundle: true
+        minify: false
+        sourcemap: inline
+    serverless-dynamodb:
+        # If you only want to use DynamoDB Local in some stages, declare them here
+        stages:
+            - dev
+        start:
+            docker: true
+            port: 8000
+            inMemory: true
+            migrate: true
+            seed: true
+            convertEmptyValues: true
+
+        seed:
+            local:
+                sources:
+                    - table: demotable
+                      sources: ["./seed/usertable.json"]
+        # Uncomment only if you already have a DynamoDB running locally
+        # noStart: true
+
+resources:
+    Resources:
+        demotable:
+            Type: AWS::DynamoDB::Table
+            Properties:
+                TableName: demotable
+                AttributeDefinitions:
+                    - AttributeName: "PK"
+                      AttributeType: "S"
+                    - AttributeName: "SK"
+                      AttributeType: "S"
+                KeySchema:
+                    - AttributeName: "PK"
+                      KeyType: "HASH"
+                    - AttributeName: "SK"
+                      KeyType: "RANGE"
+                BillingMode: "PAY_PER_REQUEST"
